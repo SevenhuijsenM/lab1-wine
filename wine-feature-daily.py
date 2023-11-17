@@ -57,4 +57,14 @@ def get_random_wine():
         df_wine = generate_wine(9, 7.42, 0.98, 0.3, 0.06, 0.39, 0.08, 4.12, 3.76, 0.03, 0.01, 33.4, 13.43, 116.0, 19.82, 0.99, 0.0, 3.31, 0.08, 0.47, 0.09, 12.18, 1.01, 0)
     return df_wine
 
-print(get_random_wine())
+if __name__ == "__main__":
+    import hopsworks
+    import pandas as pd
+
+    project = hopsworks.login()
+    fs = project.get_feature_store()
+
+    wine_df = get_random_wine()
+
+    wine_fg = fs.get_feature_group(name="wine",version=1)
+    wine_fg.insert(wine_df)
