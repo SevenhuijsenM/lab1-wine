@@ -1,0 +1,1 @@
+python wine-batch-inference-pipeline.py
