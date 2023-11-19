@@ -18,9 +18,7 @@ def generate_wine(quality, fixed_acidity_avg, fixed_acidity_std, volatile_acidit
     df['quality'] = quality
 
     # Change the type to an int
-    print(df['type'])
-    df['type'] = df['type'].astype(int)
-    print(df['type'])
+    df['type'] = int(type)
 
     return df
 
