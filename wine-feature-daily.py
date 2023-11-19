@@ -18,7 +18,10 @@ def generate_wine(quality, fixed_acidity_avg, fixed_acidity_std, volatile_acidit
     df['quality'] = quality
 
     # Change the type to an int
+    print(df['type'])
     df['type'] = df['type'].astype(int)
+    print(df['type'])
+
     return df
 
 def get_random_wine():
@@ -68,6 +71,9 @@ if __name__ == "__main__":
     fs = project.get_feature_store()
 
     wine_df = get_random_wine()
+
+    # Make sure the type is an int
+    wine_df['type'] = wine_df['type'].astype(int)
 
     wine_fg = fs.get_feature_group(name="wine",version=1)
     wine_fg.insert(wine_df)
