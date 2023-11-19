@@ -1,0 +1,1 @@
+python ./iris/iris-batch-inference-pipeline.py

@@ -16,6 +16,9 @@ def generate_wine(quality, fixed_acidity_avg, fixed_acidity_std, volatile_acidit
     df = pd.DataFrame({"fixed_acidity": [random.normalvariate(fixed_acidity_avg, fixed_acidity_std)], "volatile_acidity": [random.normalvariate(volatile_acidity_avg, volatile_acidity_std)], "citric_acid": [random.normalvariate(citric_acid_avg, citric_acid_std)], "residual_sugar": [random.normalvariate(residual_sugar_avg, residual_sugar_std)], "chlorides": [random.normalvariate(chlorides_avg, chlorides_std)], "free_sulfur_dioxide": [random.normalvariate(free_sulfur_dioxide_avg, free_sulfur_dioxide_std)], "total_sulfur_dioxide": [random.normalvariate(total_sulfur_dioxide_avg, total_sulfur_dioxide_std)], "density": [random.normalvariate(density_avg, density_std)], "pH": [random.normalvariate(pH_avg, pH_std)], "sulphates": [random.normalvariate(sulphates_avg, sulphates_std)], "alcohol": [random.normalvariate(alcohol_avg, alcohol_std)], "type": [type]})
     
     df['quality'] = quality
+
+    # Change the type to an int
+    df['type'] = df['type'].astype(int)
     return df
 
 def get_random_wine():

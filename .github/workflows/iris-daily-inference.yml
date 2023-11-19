@@ -1,4 +1,4 @@
-name: wine-feature-pipeline-daily
+name: iris-inference-pipeline-daily
 
 on:
   workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
       - name: execute python workflows from bash script
         env: 
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: ./sh/run-wine-daily.sh
+        run: ./sh/run-iris-inference-daily.sh
