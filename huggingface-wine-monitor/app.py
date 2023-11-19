@@ -15,7 +15,7 @@ dataset_api.download("Resources/texts/confusion_matrix.png")
 with gr.Blocks() as demo:
     with gr.Row():
       with gr.Column():
-          gr.Label("Today's Predicted Image")
+          gr.Textbox("Today's Predicted Image")
           input_img = gr.Text("latest_iris.png", elem_id="predicted-img")
       with gr.Column():          
           gr.Label("Today's Actual Image")
