@@ -22,14 +22,14 @@ with gr.Blocks() as demo:
             f = open("latest_wine_predicted.txt", "r")
             string = print(f.readline())
             f.close()
-            input_img = gr.Image(string , elem_id="predicted-quality")
+            input_img = gr.Textbox(string , elem_id="predicted-quality")
         
         with gr.Column():          
             gr.Label("Today's Actual quality")
             f = open("latest_wine_actual.txt", "r")
             string = print(f.readline())
             f.close()
-            input_img = gr.Image(string, elem_id="actual-quality")        
+            input_img = gr.Textbox(string, elem_id="actual-quality")        
     
     with gr.Row():
         
