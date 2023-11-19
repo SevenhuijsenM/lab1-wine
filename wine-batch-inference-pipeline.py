@@ -93,7 +93,7 @@ history_df = pd.concat([history_df, monitor_df])
 # Save the dataframe as an image and upload it to the project
 df_recent = history_df.tail(20)
 dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
-dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
+dataset_api.upload("./df_recent.png", "Resources/images/wine", overwrite=True)
 
 # Create a confusion matrix
 predictions = history_df[['prediction']]
@@ -115,7 +115,7 @@ if predictions.value_counts().count() == 7: #wine quality from 3 to 9 included
     cm = sns.heatmap(df_cm, annot=True)
     fig = cm.get_figure()
     fig.savefig("./confusion_matrix.png")
-    dataset_api.upload("./confusion_matrix.png", "Resources/images", overwrite=True)
+    dataset_api.upload("./confusion_matrix.png", "Resources/images/wine", overwrite=True)
 else:
     print("You need 7 different quality predictions to create the confusion matrix.")
     print("Run the batch inference pipeline more times until you get 7 different wine quality predictions") 
