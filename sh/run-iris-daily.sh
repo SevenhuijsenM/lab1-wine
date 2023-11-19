@@ -1,2 +1,2 @@
-python ./serverless-ml-intro/iris-feature-pipeline-daily.py
+python ./iris/iris-feature-pipeline-daily.py
 
