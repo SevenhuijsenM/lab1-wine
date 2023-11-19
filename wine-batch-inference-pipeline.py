@@ -101,6 +101,8 @@ labels = history_df[['label']]
 
 # Print the unique quality predictions
 print("Unique quality predictions: " + str(predictions.value_counts().count()))
+for quality in predictions.value_counts().index:
+    print(quality)
 
 # Only create the confusion matrix when our wine_predictions feature group has examples of all qualities??
 print("Number of different quality predictions to date: " + str(predictions.value_counts().count()))
