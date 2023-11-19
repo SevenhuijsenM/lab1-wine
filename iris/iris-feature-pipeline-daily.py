@@ -1,16 +1,6 @@
 import os
-import modal
-
-LOCAL=True
-
-if LOCAL == False:
-   stub = modal.Stub("iris_daily")
-   image = modal.Image.debian_slim().pip_install(["hopsworks"]) 
-
-   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("jim-hopsworks-ai"))
-   def f():
-       g()
-
+import hopsworks
+import pandas as pd
 
 def generate_flower(name, sepal_len_max, sepal_len_min, sepal_width_max, sepal_width_min, 
                     petal_len_max, petal_len_min, petal_width_max, petal_width_min):
@@ -54,23 +44,11 @@ def get_random_iris_flower():
 
     return iris_df
 
+project = hopsworks.login()
+fs = project.get_feature_store()
 
-def g():
-    import hopsworks
-    import pandas as pd
+iris_df = get_random_iris_flower()
 
-    project = hopsworks.login()
-    fs = project.get_feature_store()
+iris_fg = fs.get_feature_group(name="iris",version=1)
+iris_fg.insert(iris_df)
 
-    iris_df = get_random_iris_flower()
-
-    iris_fg = fs.get_feature_group(name="iris",version=1)
-    iris_fg.insert(iris_df)
-
-if __name__ == "__main__":
-    if LOCAL == True :
-        g()
-    else:
-        stub.deploy("iris_daily")
-        with stub.run():
-            f()
