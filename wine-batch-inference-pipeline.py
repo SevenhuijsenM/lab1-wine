@@ -91,7 +91,7 @@ history_df = monitor_fg.read()
 history_df = pd.concat([history_df, monitor_df])
 
 # Save the dataframe as an image and upload it to the project
-df_recent = history_df.tail(4)
+df_recent = history_df.tail(20)
 dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
 dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
 
