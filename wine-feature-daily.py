@@ -6,24 +6,16 @@ def generate_wine(quality, fixed_acidity_avg, fixed_acidity_std, volatile_acidit
                     citric_acid_avg, citric_acid_std, residual_sugar_avg, residual_sugar_std, chlorides_avg, chlorides_std,
                     free_sulfur_dioxide_avg, free_sulfur_dioxide_std, total_sulfur_dioxide_avg, total_sulfur_dioxide_std,
                     density_avg, density_std, pH_avg, pH_std, sulphates_avg, sulphates_std, alcohol_avg, alcohol_std,
-                    type_wine: int):
+                    type):
     """
     Returns a single wine type as a single row in a DataFrame
     """
     import pandas as pd
     import random
     
-    df = pd.DataFrame({"fixed_acidity": [random.normalvariate(fixed_acidity_avg, fixed_acidity_std)], "volatile_acidity": [random.normalvariate(volatile_acidity_avg, volatile_acidity_std)], "citric_acid": [random.normalvariate(citric_acid_avg, citric_acid_std)], "residual_sugar": [random.normalvariate(residual_sugar_avg, residual_sugar_std)], "chlorides": [random.normalvariate(chlorides_avg, chlorides_std)], "free_sulfur_dioxide": [random.normalvariate(free_sulfur_dioxide_avg, free_sulfur_dioxide_std)], "total_sulfur_dioxide": [random.normalvariate(total_sulfur_dioxide_avg, total_sulfur_dioxide_std)], "density": [random.normalvariate(density_avg, density_std)], "ph": [random.normalvariate(pH_avg, pH_std)], "sulphates": [random.normalvariate(sulphates_avg, sulphates_std)], "alcohol": [random.normalvariate(alcohol_avg, alcohol_std)], "type": [int(type_wine)]})
+    df = pd.DataFrame({"fixed_acidity": [random.normalvariate(fixed_acidity_avg, fixed_acidity_std)], "volatile_acidity": [random.normalvariate(volatile_acidity_avg, volatile_acidity_std)], "citric_acid": [random.normalvariate(citric_acid_avg, citric_acid_std)], "residual_sugar": [random.normalvariate(residual_sugar_avg, residual_sugar_std)], "chlorides": [random.normalvariate(chlorides_avg, chlorides_std)], "free_sulfur_dioxide": [random.normalvariate(free_sulfur_dioxide_avg, free_sulfur_dioxide_std)], "total_sulfur_dioxide": [random.normalvariate(total_sulfur_dioxide_avg, total_sulfur_dioxide_std)], "density": [random.normalvariate(density_avg, density_std)], "pH": [random.normalvariate(pH_avg, pH_std)], "sulphates": [random.normalvariate(sulphates_avg, sulphates_std)], "alcohol": [random.normalvariate(alcohol_avg, alcohol_std)], "type": [type]})
     
-    # Cast the quality and type to an int
-    df['quality'] = int(quality)
-    df['type'] = int(type_wine)
-    
-    # Make sure each column is >= 0
-    for col in df.columns:
-        if df[col].values[0] < 0:
-            df[col] = 0
-
+    df['quality'] = quality
     return df
 
 def get_random_wine():
@@ -63,9 +55,7 @@ def get_random_wine():
         df_wine = generate_wine(8, 6.66, 0.82, 0.28, 0.11, 0.33, 0.09, 5.67, 4.26, 0.04, 0.01, 36.72, 16.2, 126.17, 33.01, 0.99, 0.0, 3.22, 0.15, 0.49, 0.15, 11.64, 1.28, 0)
     elif random_nr == 13:
         df_wine = generate_wine(9, 7.42, 0.98, 0.3, 0.06, 0.39, 0.08, 4.12, 3.76, 0.03, 0.01, 33.4, 13.43, 116.0, 19.82, 0.99, 0.0, 3.31, 0.08, 0.47, 0.09, 12.18, 1.01, 0)
-    return  generate_wine(9, 7.42, 0.98, 0.3, 0.06, 0.39, 0.08, 4.12, 3.76, 0.03, 0.01, 33.4, 13.43, 116.0, 19.82, 0.99, 0.0, 3.31, 0.08, 0.47, 0.09, 12.18, 1.01, int(0))
-
-
+    return df_wine
 
 if __name__ == "__main__":
     import hopsworks
@@ -76,6 +66,5 @@ if __name__ == "__main__":
 
     wine_df = get_random_wine()
 
-    # Make sure the type is an int
     wine_fg = fs.get_feature_group(name="wine",version=1)
     wine_fg.insert(wine_df)
